@@ -33,6 +33,7 @@ public class InternalToolkit : EditorWindow
         {
             SetColor(Color.green);
         }
+
         GUILayout.EndHorizontal();
         GUILayout.EndVertical();
 
@@ -45,11 +46,12 @@ public class InternalToolkit : EditorWindow
 
         if (GUILayout.Button("Spawn Sphere"))
         {
-
+            SpawnPrefab("Objects/Sphere");
         }
 
         if (GUILayout.Button("Spawn Cube"))
         {
+            SpawnPrefab("Objects/Cube");
 
         }
         GUILayout.EndHorizontal();
@@ -78,5 +80,11 @@ public class InternalToolkit : EditorWindow
                 renderer.sharedMaterial.color = selectedColor;
             }
         }
+    }
+
+    private void SpawnPrefab(string prefabName)
+    {
+        GameObject newGameObject = (GameObject)Instantiate(Resources.Load(prefabName));
+        newGameObject.transform.position = new Vector3(Random.Range(-5f, 5f), Random.Range(-5f, 5f), Random.Range(-5f, 5f));
     }
 }
