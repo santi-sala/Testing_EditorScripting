@@ -9,6 +9,8 @@ public class InternalToolkit : EditorWindow
         GetWindow<InternalToolkit>("Toolkit");
     }
 
+    private GameObject _currentSelectedGameObject;
+
     private void OnGUI()
     {
         EditorGUILayout.BeginVertical(EditorStyles.helpBox);
@@ -18,18 +20,18 @@ public class InternalToolkit : EditorWindow
 
         if (GUILayout.Button("Make Blue"))
         {
-
+            SetColor(Color.blue);
         }
         GUILayout.BeginHorizontal();
 
         if (GUILayout.Button("Make Red"))
         {
-
+            SetColor(Color.red);
         }
 
         if (GUILayout.Button("Make Green"))
         {
-
+            SetColor(Color.green);
         }
         GUILayout.EndHorizontal();
         GUILayout.EndVertical();
@@ -54,5 +56,27 @@ public class InternalToolkit : EditorWindow
 
         EditorGUILayout.EndVertical();
         EditorGUILayout.EndVertical();
+
+}
+    private void OnFocus()
+    {
+        _currentSelectedGameObject = Selection.activeGameObject;
+    }
+
+    private void OnLostFocus()
+    {
+        _currentSelectedGameObject = null;
+    }
+
+    private void SetColor(Color selectedColor)
+    {
+        if(_currentSelectedGameObject != null)
+        {
+            Renderer renderer = _currentSelectedGameObject.GetComponent<Renderer>();
+            if (renderer != null)
+            {
+                renderer.sharedMaterial.color = selectedColor;
+            }
+        }
     }
 }
