@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class ManagerProximitySpawnable : MonoBehaviour {
 
@@ -184,7 +185,25 @@ public class ManagerProximitySpawnable : MonoBehaviour {
         return null;
     }
 
-	
+#if UNITY_EDITOR
+
+    private void OnDrawGizmos()
+    {
+        //using UnityEditor
+        Handles.color = Color.yellow;
+        Handles.DrawWireDisc(lastFocusPosition, new Vector3(0, 0, 1), spawnRangeFromFocusMin);
+        Handles.DrawWireDisc(lastFocusPosition, new Vector3(0, 0, 1), spawnRangeFromFocusMax);
+        Handles.color = Color.green;
+        Handles.DrawWireDisc(lastFocusPosition, new Vector3(0, 0, 1), rangeFromFocusSpawnMin);
+        Handles.DrawWireDisc(lastFocusPosition, new Vector3(0, 0, 1), rangeFromFocusSpawnMax);
+        Handles.color = Color.red;
+        Handles.DrawWireDisc(lastFocusPosition, new Vector3(0, 0, 1), rangeFromFocusRemove);
+
+
+    }
+
+#endif
+
 }
 
 [Serializable]
