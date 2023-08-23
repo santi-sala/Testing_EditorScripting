@@ -11,6 +11,9 @@ public class InternalToolkit : EditorWindow
 
     private GameObject _currentSelectedGameObject;
 
+    
+    public Color _pickColor;
+
     private void OnGUI()
     {
         EditorGUILayout.BeginVertical(EditorStyles.helpBox);
@@ -35,6 +38,12 @@ public class InternalToolkit : EditorWindow
         }
 
         GUILayout.EndHorizontal();
+
+        if (GUILayout.Button("Pick Color"))
+        {
+            SetColor(_pickColor);
+        }
+
         GUILayout.EndVertical();
 
         EditorGUILayout.Space();
