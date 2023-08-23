@@ -12,7 +12,7 @@ public class InternalToolkit : EditorWindow
     private GameObject _currentSelectedGameObject;
 
     
-    public Color _pickColor;
+    public Color _randomColor;
 
     private void OnGUI()
     {
@@ -39,9 +39,10 @@ public class InternalToolkit : EditorWindow
 
         GUILayout.EndHorizontal();
 
-        if (GUILayout.Button("Pick Color"))
+        if (GUILayout.Button("Random Color"))
         {
-            SetColor(_pickColor);
+            SetRandomColor();
+            SetColor(_randomColor);
         }
 
         GUILayout.EndVertical();
@@ -95,5 +96,10 @@ public class InternalToolkit : EditorWindow
     {
         GameObject newGameObject = (GameObject)Instantiate(Resources.Load(prefabName));
         newGameObject.transform.position = new Vector3(Random.Range(-5f, 5f), Random.Range(-5f, 5f), Random.Range(-5f, 5f));
+    }
+
+    private void SetRandomColor()
+    {
+        _randomColor = Random.ColorHSV();
     }
 }
