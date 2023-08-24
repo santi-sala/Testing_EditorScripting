@@ -92,6 +92,38 @@ namespace PipoTools.Localisation
                 Debug.Log("Cannot find file!");
             }
         }
+
+        public string GetLocalisedValue(string key)
+        {
+            if (localisedText.Count == 0 || localisedText == null)
+            {
+                loadDefault();
+            }
+            string result = missingTextString;
+
+            if (localisedText.ContainsKey(key))
+            {
+                result= localisedText[key];
+            }
+            return result;
+        }
+
+        public void loadDefault()
+        {
+            if (PlayerPrefs.HasKey("PipoToolsLocalisationIndex"))
+            {
+                LoadLocalisedText(availableLanguages[PlayerPrefs.GetInt("PipoToolsLocalisationIndex")].fileName);
+            }
+            else
+            {
+                LoadLocalisedText(availableLanguages[0].fileName);
+            }
+        }
+
+        public void saveDefault(int pref)
+        {
+            PlayerPrefs.SetInt("PipoToolsLocalisationIndex", pref);
+        }
     }
 
     [System.Serializable]
